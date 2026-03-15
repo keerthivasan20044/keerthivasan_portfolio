@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cyan: #00f5ff;
+  --purple: #9d4edd;
+  --pink: #ff006e;
+  --bg: #060612;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: #e2e8f0;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 2px; }
+
+/* Custom cursor */
+.cursor {
+  position: fixed; width: 10px; height: 10px;
+  background: var(--cyan); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px var(--cyan);
+  transition: transform 0.1s, background 0.2s;
+}
+.cursor-ring {
+  position: fixed; width: 32px; height: 32px;
+  border: 1px solid rgba(0,245,255,0.45); border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease;
+}
+.cursor-grow  { transform: translate(-50%,-50%) scale(2.2) !important; }
+.ring-grow    { transform: translate(-50%,-50%) scale(1.6) !important; }
+
+/* Noise grain */
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: 0.28; pointer-events: none; z-index: 1;
+}
+
+/* Glass */
+.glass {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(0,245,255,0.1);
+  backdrop-filter: blur(10px);
+}
+.glass-purple { border-color: rgba(157,78,221,0.15); }
+
+/* Glow helpers */
+.glow-c { text-shadow: 0 0 18px rgba(0,245,255,0.55); }
+.glow-p { text-shadow: 0 0 18px rgba(157,78,221,0.55); }
+.title-line { width: 56px; height: 2px; background: linear-gradient(90deg,var(--cyan),transparent); box-shadow: 0 0 8px var(--cyan); margin-top: 6px; }
+
+/* Animations */
+@keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes glowPulse{ 0%,100%{box-shadow:0 0 15px rgba(0,245,255,0.25)} 50%{box-shadow:0 0 32px rgba(0,245,255,0.6)} }
+@keyframes scanline { 0%{top:-8%} 100%{top:108%} }
+@keyframes blink    { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.anim-float       { animation: float 4s ease-in-out infinite; }
+.anim-glow-pulse  { animation: glowPulse 2.2s ease-in-out infinite; }
+.cursor-blink     { animation: blink 1s step-end infinite; }
+
+/* Scanline effect on hero */
+.scanline-wrap { position:relative; overflow:hidden; }
+.scanline-wrap::after {
+  content:''; position:absolute; left:0; width:100%; height:8%;
+  background:linear-gradient(transparent,rgba(0,245,255,0.03),transparent);
+  animation: scanline 5s linear infinite; pointer-events:none;
+}
+
+@media (hover: none) { .cursor, .cursor-ring { display: none; } body { cursor: auto; } }

@@ -1,0 +1,15 @@
+{
+  "name": "Keerthivasan R | Full Stack Developer",
+  "short_name": "KV Portfolio",
+  "description": "Full Stack MERN Developer Portfolio",
+  "icons": [
+    { "src": "/favicon-32.png",  "sizes": "32x32",   "type": "image/png" },
+    { "src": "/favicon-64.png",  "sizes": "64x64",   "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070710",
+  "theme_color": "#070710"
+}
