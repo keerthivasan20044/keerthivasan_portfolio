@@ -14,6 +14,9 @@ const SOCIALS = [
   { tech:'leetcode', label:'leetcode.com/u/keerthivasanmca',   href:'https://leetcode.com/u/keerthivasanmca' },
 ]
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+const CONTACT_ENDPOINT = API_BASE_URL ? `${API_BASE_URL}/api/contact` : '/api/contact'
+
 export default function Contact() {
   const [ref, inView] = useInView({ triggerOnce:true, threshold:.1 })
   const [form, setForm] = useState({ name:'', email:'', subject:'', message:'' })
@@ -25,7 +28,7 @@ export default function Contact() {
     if(!form.name||!form.email||!form.message){ toast.error('Please fill all required fields.'); return }
     setLoading(true)
     try {
-      const res = await axios.post('/api/contact', form)
+      const res = await axios.post(CONTACT_ENDPOINT, form)
       if(res.data.success){ toast.success(res.data.message||'Message sent! 🚀'); setForm({name:'',email:'',subject:'',message:''}) }
     } catch(err) {
       toast.error(err.response?.data?.message||'Failed to send. Try again!')
